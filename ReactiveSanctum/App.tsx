@@ -25,6 +25,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {GetGameRelease} from './services/http/igdb';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -57,6 +59,7 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const greeter = GetGameRelease();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -72,6 +75,7 @@ function App(): JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Text>{greeter}</Text>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
