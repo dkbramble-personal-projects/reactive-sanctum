@@ -18,6 +18,7 @@ export const getReleases = async (forceRetrieve: boolean): Promise<Release[]> =>
 
             if (minuteDiff < 60 * 24) {
                 console.log('Returning stored release data');
+                updateReleaseDates(storedResult.result);
                 return storedResult.result;
             }
         }
@@ -30,15 +31,21 @@ export const getReleases = async (forceRetrieve: boolean): Promise<Release[]> =>
 
     await StoreData<Release[]>(RELEASE_STORAGE_KEY, result!.releases);
 
+    if (result!.releases){
+        updateReleaseDates(result.releases);
+    }
+
+   return result!.releases;
+};
+
+function updateReleaseDates(releases: Release[]){
     //For some release date parsing issues
-    result!.releases.forEach(function (release) {
+    releases.forEach(function (release) {
         if (release.releaseDate && release.checkDate){
             release.releaseDate += 18000;
         }
     });
-
-   return result!.releases;
-};
+}
 
 export const createRelease = async (newRelease: Release): Promise<Release | null> => {
 
