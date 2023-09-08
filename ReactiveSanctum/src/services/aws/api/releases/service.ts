@@ -30,6 +30,13 @@ export const getReleases = async (forceRetrieve: boolean): Promise<Release[]> =>
 
     await StoreData<Release[]>(RELEASE_STORAGE_KEY, result!.releases);
 
+    //For some release date parsing issues
+    result!.releases.forEach(function (release) {
+        if (release.releaseDate && release.checkDate){
+            release.releaseDate += 18000;
+        }
+    });
+
    return result!.releases;
 };
 

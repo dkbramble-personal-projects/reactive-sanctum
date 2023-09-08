@@ -71,6 +71,9 @@ function GetPlaceHolderImage(props: ReleaseCoverProps): React.ReactNode {
         case 'TV':
             iconName = 'tv-outline';
             break;
+        case 'Movie':
+            iconName = 'film-outline';
+            break;
         default:
             iconName = '';
             break;
